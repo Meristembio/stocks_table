@@ -73,20 +73,20 @@ class App extends React.Component {
                                 {glycerolstock.bl}
                             </td>
                         </tr>)
-                        output = <table id="glycerolstocks-table" class="table table-striped table-hover sortable table-search-target">
-                    <thead>
-                    <tr>
-                        <th scope="col">GStock</th>
-                        <th scope="col">Strain</th>
-                        <th scope="col">Plasmid</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">Box</th>
-                        <th scope="col">Location</th>
-                    </tr>
-                    </thead>
-                    <tbody>{output}</tbody>
-                </table>
                     })
+                    output = <table id="glycerolstocks-table" class="table table-striped table-hover sortable table-search-target">
+                        <thead>
+                        <tr>
+                            <th scope="col">GStock</th>
+                            <th scope="col">Strain</th>
+                            <th scope="col">Plasmid</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Box</th>
+                            <th scope="col">Location</th>
+                        </tr>
+                        </thead>
+                        <tbody>{output}</tbody>
+                    </table>
                 } else {
                     output = <div className="alert alert-info">
                         <i className="bi bi-emoji-frown"></i> No glycerolstocks
