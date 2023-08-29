@@ -19,7 +19,6 @@ class App extends React.Component {
                 let output = []
                 if (response.data.glycerolstocks) {
                     response.data.glycerolstocks.forEach((glycerolstock) => {
-                        const has_perm_to_edit = response.data.has_perm_to_edit
                         const table_filters = response.data.table_filters
                         let glycerolstock_level = ""
                         if (glycerolstock.pl != null) glycerolstock_level = " filter-l" + glycerolstock.pl
@@ -39,23 +38,26 @@ class App extends React.Component {
                         if (glycerolstock.pi)
                             plasmid_output =
                                 <a href={"/inventory/plasmid/" + glycerolstock.pi} className="btn btn-outline-secondary"
-                                   role="button">{glycerolstock.pn}</a>
+                                   role="button"><span>{glycerolstock.pn}</span><span class="plasmid_list-id badge text-bg-light border ms-1">{glycerolstock.pix}</span></a>
 
                         let glycerolstock_edit_output = ""
-                        if(has_perm_to_edit)
+                        if(glycerolstock.p)
                             glycerolstock_edit_output = <a href={"/inventory/glycerolstock/edit/" + glycerolstock.i}
-                                                           className="btn btn-outline-secondary" role="button"><i
+                                                           className="btn text-secondary" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i
                                 className="bi bi-pencil-fill"></i></a>
 
                         output.push(<tr
                             class={"filter-item" + glycerolstock_level + glycerolstock_type + table_filters_output}>
                             <td>
-                                <a class="btn btn-success table-search-search_on me-1" role="button" href={"/inventory/glycerolstock/" + glycerolstock.i}>
-                                    {glycerolstock.n}
+                                <a class="btn btn-success table-search-search_on me-1" data-search={glycerolstock.s + glycerolstock.pn + glycerolstock.pix} role="button" href={"/inventory/glycerolstock/" + glycerolstock.i}>
+                                    <span>{glycerolstock.s + " / " + glycerolstock.pn}</span>
+                                    <span class="plasmid_list-id badge text-bg-light text-success ms-1">{glycerolstock.pix}</span>
                                 </a>
-                                <a href={"/inventory/glycerolstock/label/" + glycerolstock.i} class="btn btn-outline-info me-1"
-                                   role="button"><i class="bi bi-tag-fill"></i></a>
                                 {glycerolstock_edit_output}
+                            </td>
+                            <td>
+                                <a href={"/inventory/glycerolstock/label/" + glycerolstock.i} class="btn text-info me-1"
+                                   role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Print label"><i class="bi bi-tag-fill"></i></a>
                             </td>
                             <td>
                                 {glycerolstock.s}
@@ -77,7 +79,8 @@ class App extends React.Component {
                     output = <table id="glycerolstocks-table" class="table table-striped table-hover sortable table-search-target">
                         <thead>
                         <tr>
-                            <th scope="col">GStock</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Actions</th>
                             <th scope="col">Strain</th>
                             <th scope="col">Plasmid</th>
                             <th scope="col">Position</th>

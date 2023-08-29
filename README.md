@@ -1,2 +1,3 @@
-# Gliyerol Stocks table
-React dev to render glycerol stocks table for the intranet
+# Stocks table
+
+[Weaver](https://github.com/Meristembio/Weaver) React module for render stocks table.
