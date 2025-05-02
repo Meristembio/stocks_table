@@ -46,16 +46,32 @@ class App extends React.Component {
                                                            className="btn text-secondary" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i
                                 className="bi bi-pencil-fill"></i></a>
 
+                        let gn_name = <span>{glycerolstock.s}</span>
+
+                        if(glycerolstock.pn)
+                            gn_name = <span>{glycerolstock.s + " / " + glycerolstock.pn}</span>
+                        let plasmid_icon = ""
+                        if (glycerolstock.pcs === 'v') {
+                            // verified
+                            plasmid_icon = <i className="bi bi-check-circle ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Validated"></i>
+                        } else if(glycerolstock.pcs === 'r') {
+                            // reference
+                            plasmid_icon = <i className="bi bi-bookmarks ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Reference"></i>
+                        } else if(glycerolstock.pcs === 'c') {
+                            // under construction
+                            plasmid_icon = <i className="bi bi-hammer ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Under construction"></i>
+                        }
+
                         output.push(<tr
                             class={"filter-item" + glycerolstock_level + glycerolstock_type + table_filters_output}>
                             <td>
-                                <a class="btn btn-success table-search-search_on me-1" data-search={glycerolstock.s + glycerolstock.pn + glycerolstock.pix} role="button" href={"/inventory/glycerolstock/" + glycerolstock.i}>
-                                    <span>{glycerolstock.s + " / " + glycerolstock.pn}</span>
+                                <a class="btn btn-success table-search-search_on me-1" data-search-all={glycerolstock.s + glycerolstock.pn + glycerolstock.pix} data-search-name={glycerolstock.s + glycerolstock.pn} data-search-idx={glycerolstock.pix} role="button" href={"/inventory/glycerolstock/" + glycerolstock.i}>
+                                    {gn_name}
                                     <span class="plasmid_list-id badge text-bg-light text-success ms-1">{glycerolstock.pix}</span>
                                 </a>
-                                {glycerolstock_edit_output}
                             </td>
                             <td>
+                                {glycerolstock_edit_output}
                                 <a href={"/inventory/glycerolstock/label/" + glycerolstock.i} class="btn text-info me-1"
                                    role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Print label"><i class="bi bi-tag-fill"></i></a>
                             </td>
@@ -64,6 +80,7 @@ class App extends React.Component {
                             </td>
                             <td>
                                 {plasmid_output}
+                                {plasmid_icon}
                             </td>
                             <td>
                                 {glycerolstock.br}{glycerolstock.bc}
